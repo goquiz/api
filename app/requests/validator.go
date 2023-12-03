@@ -1,6 +1,7 @@
 package requests
 
 import (
+	errors2 "github.com/bndrmrtn/goquiz_api/http/errs"
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
 )
@@ -17,7 +18,7 @@ func Validate(s interface{}, c *fiber.Ctx) error {
 	var errors []*IError
 	err := c.BodyParser(&s)
 	if err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(errors)
+		return errors2.InternalServerError(c, err)
 	}
 	err = Validator.Struct(s)
 	if err != nil {

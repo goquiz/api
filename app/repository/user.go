@@ -10,10 +10,10 @@ type user struct{}
 
 var User user
 
-func (user) IsUsernameExists(username string) bool {
+func (user) IsUsernameOrEmailExists(username string, email string) bool {
 	var count int64
 	err := database.Database.Model(models.User{}).
-		Where("username = ?", username).
+		Where("username = ? or email = ?", username, email).
 		Limit(1).
 		Count(&count).
 		Error
@@ -24,4 +24,19 @@ func (user) IsUsernameExists(username string) bool {
 	}
 
 	return count > 0
+}
+
+func (user) FindByUsername(username string) (models.User, error) {
+	var user models.User
+	err := database.Database.Model(models.User{}).
+		Where("username = ?", username).
+		Limit(1).
+		Find(&user).
+		Error
+
+	if err != nil {
+		return user, err
+	}
+
+	return user, nil
 }

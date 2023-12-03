@@ -16,6 +16,6 @@ func (api) Add(app *fiber.App) {
 		return ctx.SendString("Api is UP!")
 	})
 
-	api.Post("/login", handlers.Auth.Login)
-	api.Post("/register", requests.RegisterRequest.Validator, handlers.Auth.Register)
+	api.Post("/login", requests.LoginRequest, handlers.Auth.Login)
+	api.Post("/register", requests.RegisterRequest, handlers.Auth.Register)
 }
