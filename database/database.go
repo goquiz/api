@@ -3,6 +3,7 @@ package database
 import (
 	"fmt"
 	"github.com/bndrmrtn/goquiz_api/database/models"
+	"github.com/bndrmrtn/goquiz_api/helpers"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -12,7 +13,7 @@ import (
 var Database *gorm.DB
 
 func Connect() {
-	dsn := "root:@tcp(127.0.0.1:3306)/go_quiz?charset=utf8mb4&parseTime=True&loc=Local"
+	dsn := fmt.Sprintf("%v:%v@tcp(%v:%v)/%v?charset=utf8mb4&parseTime=True&loc=Local", helpers.Env.Database.Username, helpers.Env.Database.Password, helpers.Env.Database.Host, helpers.Env.Database.Port, helpers.Env.Database.Database)
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
 		//DisableForeignKeyConstraintWhenMigrating: true,
 	})

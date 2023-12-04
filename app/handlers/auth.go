@@ -4,12 +4,14 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"errors"
+	"fmt"
 	"github.com/bndrmrtn/goquiz_api/app/repository"
 	"github.com/bndrmrtn/goquiz_api/app/requests"
 	"github.com/bndrmrtn/goquiz_api/database"
 	"github.com/bndrmrtn/goquiz_api/database/models"
 	"github.com/bndrmrtn/goquiz_api/helpers"
 	"github.com/bndrmrtn/goquiz_api/http/errs"
+	"github.com/bndrmrtn/goquiz_api/http/sessions"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -18,8 +20,9 @@ type auth struct{}
 var Auth auth
 
 func (auth) Login(c *fiber.Ctx) error {
-	userRequest := requests.LoginValidation{}
-	_ = c.BodyParser(&userRequest)
+	defer sessions.Global.Save()
+	userRequest := requests.LoginValidation
+
 	user, err := repository.User.FindByUsername(userRequest.Username)
 	if err != nil {
 		return errs.Unauthorized(c, err)
@@ -34,12 +37,17 @@ func (auth) Login(c *fiber.Ctx) error {
 		return errs.Unauthorized(c, errors.New("invalid username or password"))
 	}
 
-	return c.SendString("successfully logged in as " + user.Username)
+	sessions.Global.Set("authorized.user_id", user.Id)
+	return c.JSON(fiber.Map{
+		"message": fmt.Sprintf("successfully logged in as %v", user.Username),
+		"session": fiber.Map{
+			"token": sessions.Global.Id(),
+		},
+	})
 }
 
 func (auth) Register(c *fiber.Ctx) error {
-	userRequest := requests.RegisterValidation{}
-	_ = c.BodyParser(&userRequest)
+	userRequest := requests.RegisterValidation
 
 	if repository.User.IsUsernameOrEmailExists(userRequest.Username, userRequest.Email) {
 		return errs.BadRequest(c, errors.New("user already exists with this username or email address"))
@@ -59,7 +67,9 @@ func (auth) Register(c *fiber.Ctx) error {
 	}
 
 	database.Database.Model(&models.User{}).Create(&user)
-	return c.SendString("Successfully registered")
+	return c.JSON(fiber.Map{
+		"message": "Successfully registered",
+	})
 }
 
 func passwordHash(p string, s string) (string, string, error) {

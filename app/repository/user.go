@@ -26,10 +26,25 @@ func (user) IsUsernameOrEmailExists(username string, email string) bool {
 	return count > 0
 }
 
-func (user) FindByUsername(username string) (models.User, error) {
+// FindByUsername returns the user with the given username or an error
+func (u user) FindByUsername(username string) (models.User, error) {
+	return u.FindBy([]string{"username"}, username)
+}
+
+// FindById returns the user with the given id or an error
+func (u user) FindById(id uint) (models.User, error) {
+	return u.FindBy([]string{"id"}, id)
+}
+
+// FindBy returns the user with the given fields and values or an error
+func (user) FindBy(fields []string, values ...interface{}) (models.User, error) {
 	var user models.User
+	var query string
+	for _, f := range fields {
+		query += fmt.Sprintf(" %v = ?", f)
+	}
 	err := database.Database.Model(models.User{}).
-		Where("username = ?", username).
+		Where(query, values...).
 		Limit(1).
 		Find(&user).
 		Error

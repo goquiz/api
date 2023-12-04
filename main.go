@@ -10,8 +10,8 @@ import (
 
 func main() {
 	app := fiber.New()
-	database.Connect()
 	helpers.Env.Load()
+	database.Connect()
 
 	routes.Api.Add(app)
 
