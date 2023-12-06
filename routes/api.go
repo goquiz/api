@@ -8,21 +8,25 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-type api struct{}
+type _api struct{}
 
-var Api api
+var Api _api
 
-func (api) Add(app *fiber.App) {
+func (_api) Add(app *fiber.App) {
+	// api group
 	api := app.Group("/api", sessions.NewGlobalSessionHandler)
 
 	api.Get("/", func(ctx *fiber.Ctx) error {
 		return ctx.SendString("Api is UP!")
 	})
 
-	api.Post("/login", requests.LoginRequest, handlers.Auth.Login)
-	api.Post("/register", requests.RegisterRequest, handlers.Auth.Register)
+	api.Post("/login", requests.LoginRequest, handlers.AuthHandler.Login)
+	api.Post("/register", requests.RegisterRequest, handlers.AuthHandler.Register)
+	api.Get("/logout", handlers.AuthHandler.Logout)
 
-	auth := api
-	auth.Use(middleware.AuthMiddleware.Auth)
-	auth.Get("/me", handlers.Me.Hello)
+	// authenticated group
+	auth := api.Group("/", middleware.AuthMiddleware.Auth)
+	auth.Get("/me", handlers.MeHandler.Hello)
+	auth.Post("/quiz", requests.QuizRequest, handlers.QuizHandler.Create)
+	auth.Get("/quiz", handlers.QuizHandler.All)
 }

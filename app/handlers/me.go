@@ -5,11 +5,11 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-type me struct{}
+type _meHandler struct{}
 
-var Me me
+var MeHandler _meHandler
 
-func (me) Hello(c *fiber.Ctx) error {
+func (_meHandler) Hello(c *fiber.Ctx) error {
 	return c.JSON(fiber.Map{
 		"message": "Hello " + authorized.Authorized.User.Username,
 	})

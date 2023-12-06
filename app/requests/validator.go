@@ -1,15 +1,15 @@
 package requests
 
 import (
-	errors2 "github.com/bndrmrtn/goquiz_api/http/errs"
+	"github.com/bndrmrtn/goquiz_api/http/errs"
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
 )
 
 type IError struct {
-	Field string
-	Tag   string
-	Value string
+	Field string `json:"field,omitempty"`
+	Tag   string `json:"tag,omitempty"`
+	Value string `json:"value,omitempty"`
 }
 
 var Validator = validator.New()
@@ -18,7 +18,7 @@ func Validate(s interface{}, c *fiber.Ctx) error {
 	var errors []*IError
 	err := c.BodyParser(&s)
 	if err != nil {
-		return errors2.InternalServerError(c, err)
+		return errs.InternalServerError(c, err)
 	}
 	err = Validator.Struct(s)
 	if err != nil {

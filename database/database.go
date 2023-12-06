@@ -15,7 +15,7 @@ var Database *gorm.DB
 func Connect() {
 	dsn := fmt.Sprintf("%v:%v@tcp(%v:%v)/%v?charset=utf8mb4&parseTime=True&loc=Local", helpers.Env.Database.Username, helpers.Env.Database.Password, helpers.Env.Database.Host, helpers.Env.Database.Port, helpers.Env.Database.Database)
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
-		//DisableForeignKeyConstraintWhenMigrating: true,
+		// DisableForeignKeyConstraintWhenMigrating: true,
 	})
 
 	if err != nil {
@@ -27,6 +27,8 @@ func Connect() {
 
 	log.Println("Running migrations")
 	err = db.AutoMigrate(
+		&models.Answer{},
+		&models.HostedQuiz{},
 		&models.Question{},
 		&models.Quiz{},
 		&models.User{},

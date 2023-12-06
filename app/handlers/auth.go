@@ -15,11 +15,11 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-type auth struct{}
+type _authHandler struct{}
 
-var Auth auth
+var AuthHandler _authHandler
 
-func (auth) Login(c *fiber.Ctx) error {
+func (_authHandler) Login(c *fiber.Ctx) error {
 	defer sessions.Global.Save()
 	userRequest := requests.LoginValidation
 
@@ -46,8 +46,9 @@ func (auth) Login(c *fiber.Ctx) error {
 	})
 }
 
-func (auth) Register(c *fiber.Ctx) error {
+func (_authHandler) Register(c *fiber.Ctx) error {
 	userRequest := requests.RegisterValidation
+	defer sessions.Global.Save()
 
 	if repository.User.IsUsernameOrEmailExists(userRequest.Username, userRequest.Email) {
 		return errs.BadRequest(c, errors.New("user already exists with this username or email address"))
@@ -67,8 +68,19 @@ func (auth) Register(c *fiber.Ctx) error {
 	}
 
 	database.Database.Model(&models.User{}).Create(&user)
+	sessions.Global.Set("authorized.user_id", user.Id)
 	return c.JSON(fiber.Map{
 		"message": "Successfully registered",
+	})
+}
+
+func (_authHandler) Logout(c *fiber.Ctx) error {
+	err := sessions.Global.Destroy()
+	if err != nil {
+		return errs.InternalServerError(c, err)
+	}
+	return c.JSON(fiber.Map{
+		"message": "Successfully logged out",
 	})
 }
 

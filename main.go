@@ -14,6 +14,7 @@ func main() {
 	database.Connect()
 
 	routes.Api.Add(app)
+	app.Use(routes.NotFoundPage.New)
 
 	log.Fatal(app.Listen(helpers.Env.ServerPort))
 }

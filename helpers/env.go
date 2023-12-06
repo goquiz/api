@@ -31,7 +31,6 @@ type redisEnv struct {
 
 type env struct {
 	ServerPort string `env:"SERVER_PORT"`
-	JwtSecret  string `env:"JWT_SECRET"`
 	Session    sessionEnv
 	Database   databaseEnv
 	Redis      redisEnv
