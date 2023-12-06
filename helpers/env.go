@@ -1,6 +1,7 @@
 package helpers
 
 import (
+	"flag"
 	"fmt"
 	"github.com/golobby/dotenv"
 	"os"
@@ -39,7 +40,9 @@ type env struct {
 var Env env
 
 func (e *env) Load() {
-	file, err := os.Open(".env")
+	envPath := flag.String("env", ".env", "The environment file to load")
+	flag.Parse()
+	file, err := os.Open(*envPath)
 	if err != nil {
 		fmt.Println("Failed to load environment variables:", err)
 		os.Exit(1)
