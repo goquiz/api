@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="ALL" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d13a7fb5-cf52-422f-9b03-b13d64d3a7a7" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/handlers/auth.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/handlers/auth.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/handlers/me.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/handlers/me.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/requests/validator.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/requests/validator.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/models/answer.go" beforeDir="false" afterPath="$PROJECT_DIR$/database/models/answer.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/models/hosted_quiz.go" beforeDir="false" afterPath="$PROJECT_DIR$/database/models/hosted_quiz.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/models/question.go" beforeDir="false" afterPath="$PROJECT_DIR$/database/models/question.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/models/quiz.go" beforeDir="false" afterPath="$PROJECT_DIR$/database/models/quiz.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/models/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/database/models/user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/linux/goquiz_api" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/sessions/session.go" beforeDir="false" afterPath="$PROJECT_DIR$/http/sessions/session.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/not_found.go" beforeDir="false" afterPath="$PROJECT_DIR$/routes/not_found.go" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="GOROOT" url="file://$PROJECT_DIR$/../../../../../../../Program Files/Go" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2ZDsdqp6HPxhOa8rgDYRN93bHgW" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.modules.automatic.dependencies.download&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/bndrm&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VgoProject">
+    <settings-migrated>true</settings-migrated>
+  </component>
+</project>

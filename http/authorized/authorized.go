@@ -1,8 +1,8 @@
 package authorized
 
 import (
-	"github.com/bndrmrtn/goquiz_api/app/repository"
-	"github.com/bndrmrtn/goquiz_api/database/models"
+	"github.com/goquiz/api/app/repository"
+	"github.com/goquiz/api/database/models"
 )
 
 type _user struct {

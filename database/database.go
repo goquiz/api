@@ -2,8 +2,8 @@ package database
 
 import (
 	"fmt"
-	"github.com/bndrmrtn/goquiz_api/database/models"
-	"github.com/bndrmrtn/goquiz_api/helpers"
+	"github.com/goquiz/api/database/models"
+	"github.com/goquiz/api/helpers"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"

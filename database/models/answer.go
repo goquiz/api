@@ -3,7 +3,7 @@ package models
 import "gorm.io/gorm"
 
 type Answer struct {
-	gorm.Model
+	gorm.Model `json:"-"`
 	Id         uint `json:"id" gorm:"primaryKey"`
 	UserId     uint
 	User       User   `json:"user" gorm:"foreignKey:UserId"`

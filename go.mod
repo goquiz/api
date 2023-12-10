@@ -1,4 +1,4 @@
-module github.com/bndrmrtn/goquiz_api
+module github.com/goquiz/api
 
 go 1.21.1
 

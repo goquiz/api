@@ -1,11 +1,11 @@
 package routes
 
 import (
-	"github.com/bndrmrtn/goquiz_api/app/handlers"
-	"github.com/bndrmrtn/goquiz_api/app/requests"
-	"github.com/bndrmrtn/goquiz_api/http/middleware"
-	"github.com/bndrmrtn/goquiz_api/http/sessions"
 	"github.com/gofiber/fiber/v2"
+	"github.com/goquiz/api/app/handlers"
+	"github.com/goquiz/api/app/requests"
+	"github.com/goquiz/api/http/middleware"
+	"github.com/goquiz/api/http/sessions"
 )
 
 type _api struct{}

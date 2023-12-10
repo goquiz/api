@@ -5,14 +5,14 @@ import (
 	"encoding/hex"
 	"errors"
 	"fmt"
-	"github.com/bndrmrtn/goquiz_api/app/repository"
-	"github.com/bndrmrtn/goquiz_api/app/requests"
-	"github.com/bndrmrtn/goquiz_api/database"
-	"github.com/bndrmrtn/goquiz_api/database/models"
-	"github.com/bndrmrtn/goquiz_api/helpers"
-	"github.com/bndrmrtn/goquiz_api/http/errs"
-	"github.com/bndrmrtn/goquiz_api/http/sessions"
 	"github.com/gofiber/fiber/v2"
+	"github.com/goquiz/api/app/repository"
+	"github.com/goquiz/api/app/requests"
+	"github.com/goquiz/api/database"
+	"github.com/goquiz/api/database/models"
+	"github.com/goquiz/api/helpers"
+	"github.com/goquiz/api/http/errs"
+	"github.com/goquiz/api/http/sessions"
 )
 
 type _authHandler struct{}
@@ -39,10 +39,8 @@ func (_authHandler) Login(c *fiber.Ctx) error {
 
 	sessions.Global.Set("authorized.user_id", user.Id)
 	return c.JSON(fiber.Map{
-		"message": fmt.Sprintf("successfully logged in as %v", user.Username),
-		"session": fiber.Map{
-			"token": sessions.Global.Id(),
-		},
+		"message":  fmt.Sprintf("successfully logged in as %v", user.Username),
+		"authUser": user,
 	})
 }
 

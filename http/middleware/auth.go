@@ -3,10 +3,10 @@ package middleware
 import (
 	"errors"
 	"fmt"
-	"github.com/bndrmrtn/goquiz_api/http/authorized"
-	"github.com/bndrmrtn/goquiz_api/http/errs"
-	"github.com/bndrmrtn/goquiz_api/http/sessions"
 	"github.com/gofiber/fiber/v2"
+	"github.com/goquiz/api/http/authorized"
+	"github.com/goquiz/api/http/errs"
+	"github.com/goquiz/api/http/sessions"
 )
 
 type _authMiddleware struct{}

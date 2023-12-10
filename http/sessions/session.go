@@ -2,10 +2,10 @@ package sessions
 
 import (
 	"fmt"
-	"github.com/bndrmrtn/goquiz_api/helpers"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/session"
 	"github.com/gofiber/storage/redis/v3"
+	"github.com/goquiz/api/helpers"
 	"time"
 )
 
@@ -33,6 +33,7 @@ func New(c *fiber.Ctx, global bool) (*Sess, error) {
 		CookieHTTPOnly: helpers.Env.Session.CookieHttpOnly,
 		CookieSameSite: helpers.Env.Session.CookieSameSite,
 		Storage:        storage,
+		CookieDomain:   "localhost",
 	})
 	sess, err := store.Get(c)
 	if err != nil {

@@ -6,7 +6,7 @@ import (
 )
 
 type Question struct {
-	gorm.Model
+	gorm.Model   `json:"-"`
 	Id           uint           `json:"id" gorm:"primaryKey"`
 	Question     string         `json:"question" gorm:"question"`
 	Image        string         `json:"image" gorm:"image,default:null"`

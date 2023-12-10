@@ -1,6 +1,6 @@
 package repository
 
-import "github.com/bndrmrtn/goquiz_api/database/models"
+import "github.com/goquiz/api/database/models"
 
 type quiz struct{}
 

@@ -2,8 +2,8 @@ package repository
 
 import (
 	"fmt"
-	"github.com/bndrmrtn/goquiz_api/database"
-	"github.com/bndrmrtn/goquiz_api/database/models"
+	"github.com/goquiz/api/database"
+	"github.com/goquiz/api/database/models"
 )
 
 type user struct{}

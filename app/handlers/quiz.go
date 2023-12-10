@@ -1,12 +1,12 @@
 package handlers
 
 import (
-	"github.com/bndrmrtn/goquiz_api/app/repository"
-	"github.com/bndrmrtn/goquiz_api/app/requests"
-	"github.com/bndrmrtn/goquiz_api/database"
-	"github.com/bndrmrtn/goquiz_api/database/models"
-	"github.com/bndrmrtn/goquiz_api/http/authorized"
 	"github.com/gofiber/fiber/v2"
+	"github.com/goquiz/api/app/repository"
+	"github.com/goquiz/api/app/requests"
+	"github.com/goquiz/api/database"
+	"github.com/goquiz/api/database/models"
+	"github.com/goquiz/api/http/authorized"
 )
 
 type _quizHandler struct{}

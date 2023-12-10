@@ -1,9 +1,11 @@
 package requests
 
 import (
-	"github.com/bndrmrtn/goquiz_api/http/errs"
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
+	"github.com/goquiz/api/http/errs"
+	"regexp"
+	"strings"
 )
 
 type IError struct {
@@ -24,7 +26,10 @@ func Validate(s interface{}, c *fiber.Ctx) error {
 	if err != nil {
 		for _, err := range err.(validator.ValidationErrors) {
 			var el IError
-			el.Field = err.Field()
+			pattern := regexp.MustCompile("(\\p{Lu}+\\P{Lu}*)")
+			s = pattern.ReplaceAllString(err.Field(), "${1}_")
+			s, _ = strings.CutSuffix(strings.ToLower(err.Field()), "_")
+			el.Field = s.(string)
 			el.Tag = err.Tag()
 			el.Value = err.Param()
 			errors = append(errors, &el)

@@ -1,8 +1,9 @@
 package handlers
 
 import (
-	"github.com/bndrmrtn/goquiz_api/http/authorized"
+	"fmt"
 	"github.com/gofiber/fiber/v2"
+	"github.com/goquiz/api/http/authorized"
 )
 
 type _meHandler struct{}
@@ -11,6 +12,7 @@ var MeHandler _meHandler
 
 func (_meHandler) Hello(c *fiber.Ctx) error {
 	return c.JSON(fiber.Map{
-		"message": "Hello " + authorized.Authorized.User.Username,
+		"message":  fmt.Sprintf("Hi %v!", authorized.Authorized.User.Username),
+		"authUser": authorized.Authorized.User,
 	})
 }
