@@ -13,6 +13,11 @@ type sessionEnv struct {
 	CookieSecure   bool   `env:"COOKIE_SECURE"`
 	CookieHttpOnly bool   `env:"COOKIE_HTTP_ONLY"`
 	CookieSameSite string `env:"COOKIE_SAME_SITE"`
+	CookieDomain   string `env:"COOKIE_DOMAIN"`
+}
+
+type corsEnv struct {
+	AllowOrigins string `env:"CORS_ALLOW_ORIGINS"`
 }
 
 type databaseEnv struct {
@@ -35,6 +40,7 @@ type env struct {
 	Session    sessionEnv
 	Database   databaseEnv
 	Redis      redisEnv
+	Cors       corsEnv
 }
 
 var Env env

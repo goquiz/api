@@ -24,3 +24,7 @@ func (r Random) String(n int) string {
 	}
 	return string(b)
 }
+
+func (r Random) Number(low int, hi int) int {
+	return low + r.random.Intn(hi-low)
+}
