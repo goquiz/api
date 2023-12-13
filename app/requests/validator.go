@@ -34,7 +34,9 @@ func Validate(s interface{}, c *fiber.Ctx) error {
 			el.Value = err.Param()
 			errors = append(errors, &el)
 		}
-		return c.Status(fiber.StatusBadRequest).JSON(errors)
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"errors": errors,
+		})
 	}
 	return c.Next()
 }

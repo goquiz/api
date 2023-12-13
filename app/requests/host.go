@@ -4,13 +4,13 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-type _quizValidation struct {
+type _hostValidation struct {
 	Name string `json:"name" validate:"required,min=4,max=35"`
 }
 
-var QuizValidation _quizValidation
+var HostValidation _hostValidation
 
-func QuizRequest(c *fiber.Ctx) error {
-	r := &QuizValidation
+func HostRequest(c *fiber.Ctx) error {
+	r := &HostValidation
 	return Validate(r, c)
 }

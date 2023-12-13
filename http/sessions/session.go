@@ -33,7 +33,7 @@ func New(c *fiber.Ctx, global bool) (*Sess, error) {
 		CookieHTTPOnly: helpers.Env.Session.CookieHttpOnly,
 		CookieSameSite: helpers.Env.Session.CookieSameSite,
 		Storage:        storage,
-		CookieDomain:   "localhost",
+		CookieDomain:   helpers.Env.Session.CookieDomain,
 	})
 	sess, err := store.Get(c)
 	if err != nil {

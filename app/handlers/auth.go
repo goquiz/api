@@ -41,6 +41,7 @@ func (_authHandler) Login(c *fiber.Ctx) error {
 	return c.JSON(fiber.Map{
 		"message":  fmt.Sprintf("successfully logged in as %v", user.Username),
 		"authUser": user,
+		"session":  sessions.Global.Id(),
 	})
 }
 

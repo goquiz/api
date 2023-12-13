@@ -29,4 +29,9 @@ func (_api) Add(app *fiber.App) {
 	auth.Get("/me", handlers.MeHandler.Hello)
 	auth.Post("/quiz", requests.QuizRequest, handlers.QuizHandler.Create)
 	auth.Get("/quiz", handlers.QuizHandler.All)
+	auth.Get("/quiz/:id<int>", handlers.QuizHandler.WithQuestions)
+	// adding or changing questions
+	auth.Post("/quiz/:id<int>/questions", requests.QuestionRequest, handlers.QuestionHandler.AddQuestions)
+	auth.Post("/quiz/:id<int>/host", requests.HostRequest, handlers.HostHandler.New)
+	auth.Put("/quiz/host/:id<int>/active", handlers.HostHandler.ChangeActive)
 }
