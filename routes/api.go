@@ -30,12 +30,13 @@ func (_api) Add(app *fiber.App) {
 	auth.Post("/quiz", requests.QuizRequest, handlers.QuizHandler.Create)
 	auth.Get("/quiz", handlers.QuizHandler.All)
 	auth.Get("/quiz/:id<int>", handlers.QuizHandler.WithQuestions)
+	auth.Delete("/quiz/:id<int>", handlers.QuizHandler.Destroy)
 	// adding or changing questions
 	auth.Post("/quiz/:id<int>/questions", requests.QuestionRequest, handlers.QuestionHandler.Create)
 	auth.Put("/quiz/:id<int>/questions/:questionId<int>", requests.QuestionRequest, handlers.QuestionHandler.Update)
 	auth.Delete("/quiz/:id<int>/questions/:questionId<int>", handlers.QuestionHandler.Destroy)
 	//
-	auth.Post("/quiz/:id<int>/host", requests.HostRequest, handlers.HostHandler.New)
-	auth.Put("/quiz/host/:id<int>/active", handlers.HostHandler.ChangeActive)
-	auth.Get("/quiz/hosts", handlers.HostHandler.All)
+	auth.Post("/quiz/:id<int>/hosts", requests.HostRequest, handlers.HostHandler.New)
+	auth.Put("/quiz/:id<int>/hosts/hostId<int>/active", handlers.HostHandler.ChangeActive)
+	auth.Get("/quiz/:id<int>/hosts", handlers.HostHandler.All)
 }

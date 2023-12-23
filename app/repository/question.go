@@ -9,6 +9,7 @@ type question struct{}
 
 var Question question
 
+// ForQuiz returns a question by a question and a quiz id
 func (question) ForQuiz(id uint, quizId uint) *models.Question {
 	var question models.Question
 	database.Database.Model(models.Question{}).

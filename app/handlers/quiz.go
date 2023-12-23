@@ -44,6 +44,31 @@ func (_quizHandler) Create(c *fiber.Ctx) error {
 	})
 }
 
+func (q _quizHandler) Update(c *fiber.Ctx) error {
+	quiz, err := q.GetQuiz(c)
+	if err != nil {
+		return errs.NotFound(c, err)
+	}
+	quizRequest := requests.QuizValidation
+	quiz.Name = quizRequest.Name
+
+	database.Database.Save(&quiz)
+	return c.JSON(fiber.Map{
+		"message": "Successfully modified",
+	})
+}
+
+func (q _quizHandler) Destroy(c *fiber.Ctx) error {
+	quiz, err := q.GetQuiz(c)
+	if err != nil {
+		return errs.NotFound(c, err)
+	}
+	database.Database.Delete(&quiz)
+	return c.JSON(fiber.Map{
+		"message": "Successfully deleted",
+	})
+}
+
 func (_quizHandler) GetQuiz(c *fiber.Ctx) (*models.Quiz, error) {
 	idInt, _ := strconv.Atoi(c.Params("id"))
 	id := uint(idInt)

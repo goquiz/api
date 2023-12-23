@@ -41,8 +41,10 @@ func (_host) New(c *fiber.Ctx) error {
 }
 
 func (_host) All(c *fiber.Ctx) error {
+	idInt, _ := strconv.Atoi(c.Params("id"))
+	quizId := uint(idInt)
 	userId := authorized.Authorized.User.Id
-	hostedQuizzes := repository.HostedQuiz.AllForUser(userId)
+	hostedQuizzes := repository.HostedQuiz.AllForUser(quizId, userId)
 	return c.JSON(hostedQuizzes)
 }
 
@@ -69,7 +71,7 @@ func (h _host) ChangeActive(c *fiber.Ctx) error {
 }
 
 func (_host) GetUserHost(c *fiber.Ctx) (*models.HostedQuiz, error) {
-	idInt, _ := strconv.Atoi(c.Params("id"))
+	idInt, _ := strconv.Atoi(c.Params("hostId"))
 	id := uint(idInt)
 	hosted := repository.HostedQuiz.FindForUser(id, authorized.Authorized.User.Id)
 	if hosted.Id == 0 {

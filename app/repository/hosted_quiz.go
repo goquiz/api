@@ -11,6 +11,7 @@ type hosted_quiz struct{}
 
 var HostedQuiz hosted_quiz
 
+// NewUniqueCode generates a unique code for a quiz to host
 func (hosted_quiz) NewUniqueCode() string {
 	var publicKey int
 	for {
@@ -28,6 +29,7 @@ func (hosted_quiz) NewUniqueCode() string {
 	return fmt.Sprintf("%v", publicKey)
 }
 
+// FindForUser returns a models.HostedQuiz by an id for a specific user
 func (hosted_quiz) FindForUser(id uint, userId uint) *models.HostedQuiz {
 	var hosted models.HostedQuiz
 	database.Database.Joins("Quiz").Model(&hosted).
@@ -36,10 +38,12 @@ func (hosted_quiz) FindForUser(id uint, userId uint) *models.HostedQuiz {
 	return &hosted
 }
 
-func (hosted_quiz) AllForUser(userId uint) []*models.HostedQuiz {
+// AllForUser returns a list of models.HostedQuiz by a quiz and a user id
+func (hosted_quiz) AllForUser(quizId uint, userId uint) []*models.HostedQuiz {
 	var hosts []*models.HostedQuiz
 	database.Database.Joins("Quiz").
-		Where("quiz.user_id = ?", userId).
+		Order("updated_at DESC").
+		Where("quiz.id = ? and quiz.user_id = ?", quizId, userId).
 		Find(&hosts)
 	return hosts
 }

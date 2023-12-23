@@ -4,20 +4,18 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="95fbee3e-205b-4652-8f74-5b2f375e56be" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/repository/question.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/requests/reset_password.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/models/reset_password.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/quiz_app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/quiz_app.iml" afterDir="false" />
+    <list default="true" id="95fbee3e-205b-4652-8f74-5b2f375e56be" name="Changes" comment="Create, Update, Destroy questions for auth user">
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/http/middleware/cors.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/handlers/auth.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/handlers/auth.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/handlers/host.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/handlers/host.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/handlers/questions.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/handlers/questions.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/handlers/quiz.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/handlers/quiz.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/repository/hosted_quiz.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/repository/hosted_quiz.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/repository/question.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/repository/question.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/repository/quiz.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/repository/quiz.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/requests/question.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/requests/question.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/database.go" beforeDir="false" afterPath="$PROJECT_DIR$/database/database.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.go" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -35,6 +33,9 @@
   <component name="GOROOT" url="file://$PROJECT_DIR$/../../../../../../../Program Files/Go" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -55,7 +56,7 @@
     "RunOnceActivity.go.modules.automatic.dependencies.download": "true",
     "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "dev",
     "go.import.settings.migrated": "true",
     "go.sdk.automatically.set": "true",
     "last_opened_file_path": "C:/Users/bndrm",
@@ -68,6 +69,10 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Create, Update, Destroy questions for auth user" />
+    <option name="LAST_COMMIT_MESSAGE" value="Create, Update, Destroy questions for auth user" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
