@@ -28,9 +28,7 @@ func (q _quizHandler) WithQuestions(c *fiber.Ctx) error {
 	if err != nil {
 		return errs.NotFound(c, err)
 	}
-	return c.JSON(fiber.Map{
-		"data": quiz,
-	})
+	return c.JSON(quiz)
 }
 
 func (_quizHandler) Create(c *fiber.Ctx) error {

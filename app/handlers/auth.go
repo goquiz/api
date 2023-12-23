@@ -83,6 +83,12 @@ func (_authHandler) Logout(c *fiber.Ctx) error {
 	})
 }
 
+/* currently no email service
+func (_authHandler) RequestNewPassword(*fiber.Ctx) error {
+	//username := requests.ResetPasswordValidation.Username
+}
+*/
+
 func passwordHash(p string, s string) (string, string, error) {
 	if s == "" {
 		s = helpers.NewRandom().String(25)

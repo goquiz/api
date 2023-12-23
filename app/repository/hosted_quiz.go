@@ -35,3 +35,11 @@ func (hosted_quiz) FindForUser(id uint, userId uint) *models.HostedQuiz {
 		Find(&hosted)
 	return &hosted
 }
+
+func (hosted_quiz) AllForUser(userId uint) []*models.HostedQuiz {
+	var hosts []*models.HostedQuiz
+	database.Database.Joins("Quiz").
+		Where("quiz.user_id = ?", userId).
+		Find(&hosts)
+	return hosts
+}

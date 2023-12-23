@@ -25,3 +25,11 @@ func (quiz) WithQuestions(quizId uint, userId uint) *models.Quiz {
 		Find(&quiz)
 	return &quiz
 }
+
+func (quiz) IsBelongsToUser(quizId uint, userId uint) bool {
+	var count int64
+	database.Database.Model(models.Quiz{}).
+		Where("id = ? and user_id = ?", quizId, userId).
+		Count(&count)
+	return count > 0
+}

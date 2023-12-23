@@ -5,7 +5,7 @@ import (
 )
 
 type _questionValidation struct {
-	Question string   `json:"question" validate:"required,min=5,max=35"`
+	Question string   `json:"question" validate:"required,min=5,max=55"`
 	Image    *string  `json:"image,omitempty"`
 	Answers  []string `json:"answers" validate:"required,min=1,max=4,dive,min=1,max=35"`
 	Answer   string   `json:"answer" validate:"required,min=1,max=35"`
