@@ -40,6 +40,12 @@ func (_host) New(c *fiber.Ctx) error {
 	})
 }
 
+func (_host) All(c *fiber.Ctx) error {
+	userId := authorized.Authorized.User.Id
+	hostedQuizzes := repository.HostedQuiz.AllForUser(userId)
+	return c.JSON(hostedQuizzes)
+}
+
 func (h _host) ChangeActive(c *fiber.Ctx) error {
 	type IsActive struct {
 		IsActive bool `json:"is_active"`

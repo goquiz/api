@@ -4,29 +4,20 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0e45019a-04bf-414f-8c97-094b13e6e28d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/handlers/host.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/handlers/questions.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/repository/hosted_quiz.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/requests/host.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/requests/question.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+    <list default="true" id="95fbee3e-205b-4652-8f74-5b2f375e56be" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/app/repository/question.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/requests/reset_password.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/models/reset_password.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/quiz_app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/quiz_app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/handlers/auth.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/handlers/auth.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/handlers/host.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/handlers/host.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/handlers/questions.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/handlers/questions.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/handlers/quiz.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/handlers/quiz.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/repository/hosted_quiz.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/repository/hosted_quiz.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/repository/quiz.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/repository/quiz.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/requests/quiz.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/requests/quiz.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/requests/validator.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/requests/validator.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/models/answer.go" beforeDir="false" afterPath="$PROJECT_DIR$/database/models/answer.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/models/hosted_quiz.go" beforeDir="false" afterPath="$PROJECT_DIR$/database/models/hosted_quiz.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/models/question.go" beforeDir="false" afterPath="$PROJECT_DIR$/database/models/question.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/models/quiz.go" beforeDir="false" afterPath="$PROJECT_DIR$/database/models/quiz.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helpers/env.go" beforeDir="false" afterPath="$PROJECT_DIR$/helpers/env.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helpers/random.go" beforeDir="false" afterPath="$PROJECT_DIR$/helpers/random.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/http/sessions/session.go" beforeDir="false" afterPath="$PROJECT_DIR$/http/sessions/session.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/requests/question.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/requests/question.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/database.go" beforeDir="false" afterPath="$PROJECT_DIR$/database/database.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.go" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -45,38 +36,35 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/app/handlers/questions.go" root0="FORCE_HIGHLIGHTING" />
-  </component>
   <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 7
 }</component>
-  <component name="ProjectId" id="2ZS51ETgx40fKXkhaWzAlzjOawi" />
+  <component name="ProjectId" id="2ZXtAU9aL0bpwH30wXKbUUzinJX" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultGoTemplateProperty&quot;: &quot;Go File&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.modules.automatic.dependencies.download&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
-    &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/bndrm&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultGoTemplateProperty": "Go File",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "RunOnceActivity.go.modules.automatic.dependencies.download": "true",
+    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "go.import.settings.migrated": "true",
+    "go.sdk.automatically.set": "true",
+    "last_opened_file_path": "C:/Users/bndrm",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
