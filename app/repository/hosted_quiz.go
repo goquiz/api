@@ -5,6 +5,7 @@ import (
 	"github.com/goquiz/api/database"
 	"github.com/goquiz/api/database/models"
 	"github.com/goquiz/api/helpers"
+	"gorm.io/gorm"
 )
 
 type hosted_quiz struct{}
@@ -41,9 +42,30 @@ func (hosted_quiz) FindForUser(id uint, userId uint) *models.HostedQuiz {
 // AllForUser returns a list of models.HostedQuiz by a quiz and a user id
 func (hosted_quiz) AllForUser(quizId uint, userId uint) []*models.HostedQuiz {
 	var hosts []*models.HostedQuiz
-	database.Database.Joins("Quiz").
+	database.Database.Model(&models.HostedQuiz{}).
+		Joins("Quiz").
 		Order("updated_at DESC").
 		Where("quiz.id = ? and quiz.user_id = ?", quizId, userId).
 		Find(&hosts)
 	return hosts
+}
+
+// FindByPublicKeyWithQuizUser returns a models.HostedQuiz with a preloaded quiz that contains a preloaded user
+func (hosted_quiz) FindByPublicKeyWithQuizUser(publicKey string) *models.HostedQuiz {
+	var hostedQuiz models.HostedQuiz
+	database.Database.Model(&models.HostedQuiz{}).
+		Preload("Quiz", func(db *gorm.DB) *gorm.DB {
+			return db.Preload("User")
+		}).
+		Where("public_key = ?", publicKey).
+		Find(&hostedQuiz)
+	return &hostedQuiz
+}
+
+func (hosted_quiz) FindByPublicKey(publicKey string) *models.HostedQuiz {
+	var hostedQuiz models.HostedQuiz
+	database.Database.Model(&models.HostedQuiz{}).
+		Where("public_key = ?", publicKey).
+		Find(&hostedQuiz)
+	return &hostedQuiz
 }

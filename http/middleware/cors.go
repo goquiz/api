@@ -12,5 +12,6 @@ func NewCors() fiber.Handler {
 		AllowOrigins:     helpers.Env.Cors.AllowOrigins,
 		AllowCredentials: true,
 		AllowMethods:     "GET,POST,HEAD,PUT,DELETE,PATCH,OPTIONS",
+		MaxAge:           60 * 5, // 5 minutes
 	})
 }

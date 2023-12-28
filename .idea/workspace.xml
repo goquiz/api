@@ -4,11 +4,13 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="95fbee3e-205b-4652-8f74-5b2f375e56be" name="Changes" comment="hosts maintained, other little fixes, added readme">
+    <list default="true" id="95fbee3e-205b-4652-8f74-5b2f375e56be" name="Changes" comment="some handlers updated and other fixes">
+      <change afterPath="$PROJECT_DIR$/app/handlers/play.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/handlers/host.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/handlers/host.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/handlers/questions.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/handlers/questions.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/repository/quiz.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/repository/quiz.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/repository/hosted_quiz.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/repository/hosted_quiz.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/repository/question.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/repository/question.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/models/question.go" beforeDir="false" afterPath="$PROJECT_DIR$/database/models/question.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/middleware/cors.go" beforeDir="false" afterPath="$PROJECT_DIR$/http/middleware/cors.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.go" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -26,6 +28,20 @@
   <component name="GOROOT" url="file://$PROJECT_DIR$/../../../../../../../Program Files/Go" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "bndrmrtn"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="ac569904-edd7-438d-8a36-fcba4727cd37" />
+        <option name="url" value="https://github.com/goquiz/api.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -66,7 +82,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Create, Update, Destroy questions for auth user" />
     <MESSAGE value="hosts maintained, other little fixes, added readme" />
-    <option name="LAST_COMMIT_MESSAGE" value="hosts maintained, other little fixes, added readme" />
+    <MESSAGE value="some handlers updated and other fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="some handlers updated and other fixes" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

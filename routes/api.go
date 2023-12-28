@@ -42,4 +42,7 @@ func (_api) Add(app *fiber.App) {
 	auth.Put("/quiz/:id<int>/hosts/:hostId<int>/activity", handlers.HostHandler.ChangeActive)
 	auth.Delete("/quiz/:id<int>/hosts/:hostId<int>", handlers.HostHandler.Destroy)
 	auth.Get("/quiz/:id<int>/hosts", handlers.HostHandler.All)
+	// Play routes
+	auth.Get("/play/:public_key<maxLen(8)>/info", handlers.PlayHandler.Info)
+	auth.Get("/play/:public_key<maxLen(8)>", handlers.PlayHandler.Play)
 }
