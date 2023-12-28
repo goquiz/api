@@ -27,9 +27,11 @@ func (_api) Add(app *fiber.App) {
 	// authenticated group
 	auth := api.Group("/", middleware.AuthMiddleware.Auth)
 	auth.Get("/me", handlers.MeHandler.Hello)
+	// quizzes
 	auth.Post("/quiz", requests.QuizRequest, handlers.QuizHandler.Create)
 	auth.Get("/quiz", handlers.QuizHandler.All)
 	auth.Get("/quiz/:id<int>", handlers.QuizHandler.WithQuestions)
+	auth.Put("/quiz/:id<int>", requests.QuizRequest, handlers.QuizHandler.Update)
 	auth.Delete("/quiz/:id<int>", handlers.QuizHandler.Destroy)
 	// adding or changing questions
 	auth.Post("/quiz/:id<int>/questions", requests.QuestionRequest, handlers.QuestionHandler.Create)
@@ -37,6 +39,7 @@ func (_api) Add(app *fiber.App) {
 	auth.Delete("/quiz/:id<int>/questions/:questionId<int>", handlers.QuestionHandler.Destroy)
 	//
 	auth.Post("/quiz/:id<int>/hosts", requests.HostRequest, handlers.HostHandler.New)
-	auth.Put("/quiz/:id<int>/hosts/hostId<int>/active", handlers.HostHandler.ChangeActive)
+	auth.Put("/quiz/:id<int>/hosts/:hostId<int>/activity", handlers.HostHandler.ChangeActive)
+	auth.Delete("/quiz/:id<int>/hosts/:hostId<int>", handlers.HostHandler.Destroy)
 	auth.Get("/quiz/:id<int>/hosts", handlers.HostHandler.All)
 }

@@ -36,7 +36,7 @@ func (_host) New(c *fiber.Ctx) error {
 
 	return c.JSON(fiber.Map{
 		"message": "Successfully hosted this quiz",
-		"host_id": hostId,
+		"host":    hostedQuiz,
 	})
 }
 
@@ -45,7 +45,10 @@ func (_host) All(c *fiber.Ctx) error {
 	quizId := uint(idInt)
 	userId := authorized.Authorized.User.Id
 	hostedQuizzes := repository.HostedQuiz.AllForUser(quizId, userId)
-	return c.JSON(hostedQuizzes)
+	return c.JSON(fiber.Map{
+		"hosts": hostedQuizzes,
+		"quiz":  repository.Quiz.ById(quizId),
+	})
 }
 
 func (h _host) ChangeActive(c *fiber.Ctx) error {
@@ -63,10 +66,29 @@ func (h _host) ChangeActive(c *fiber.Ctx) error {
 		return errs.NotFound(c, err)
 	}
 	hosted.IsActive = isActive.IsActive
+
+	if !isActive.IsActive {
+		hosted.PublicKey = ""
+	} else {
+		hosted.PublicKey = repository.HostedQuiz.NewUniqueCode()
+	}
+
 	database.Database.Save(&hosted)
 	return c.JSON(fiber.Map{
-		"message":   "Successfully modified",
-		"is_active": hosted.IsActive,
+		"message":    "Successfully modified",
+		"is_active":  hosted.IsActive,
+		"public_key": hosted.PublicKey,
+	})
+}
+
+func (h _host) Destroy(c *fiber.Ctx) error {
+	hosted, err := h.GetUserHost(c)
+	if err != nil {
+		return errs.NotFound(c, err)
+	}
+	database.Database.Delete(&hosted)
+	return c.JSON(fiber.Map{
+		"message": "successfully deleted",
 	})
 }
 
