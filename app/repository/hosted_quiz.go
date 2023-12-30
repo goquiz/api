@@ -33,8 +33,9 @@ func (hosted_quiz) NewUniqueCode() string {
 // FindForUser returns a models.HostedQuiz by an id for a specific user
 func (hosted_quiz) FindForUser(id uint, userId uint) *models.HostedQuiz {
 	var hosted models.HostedQuiz
-	database.Database.Joins("Quiz").Model(&hosted).
-		Where("hosted_quizzes.id = ? and quiz.user_id = ?", id, userId).
+	database.Database.Model(&hosted).
+		Joins("Quiz").
+		Where("hosted_quizzes.id = ? and Quiz.user_id = ?", id, userId).
 		Find(&hosted)
 	return &hosted
 }
@@ -45,7 +46,7 @@ func (hosted_quiz) AllForUser(quizId uint, userId uint) []*models.HostedQuiz {
 	database.Database.Model(&models.HostedQuiz{}).
 		Joins("Quiz").
 		Order("updated_at DESC").
-		Where("quiz.id = ? and quiz.user_id = ?", quizId, userId).
+		Where("Quiz.id = ? and Quiz.user_id = ?", quizId, userId).
 		Find(&hosts)
 	return hosts
 }
