@@ -10,8 +10,8 @@ type quiz struct{}
 var Quiz quiz
 
 // AllForUser returns all the quizzes for a user
-func (quiz) AllForUser(userId uint) []models.Quiz {
-	var quizzes []models.Quiz
+func (quiz) AllForUser(userId uint) []*models.Quiz {
+	var quizzes []*models.Quiz
 	database.Database.Model(models.Quiz{}).
 		Order("updated_at DESC").
 		Where("user_id = ?", userId).
@@ -52,4 +52,12 @@ func (quiz) ById(id uint) *models.Quiz {
 		Where("id = ?", id).
 		Find(&question)
 	return &question
+}
+
+func (quiz) CountForUser(userId uint) int64 {
+	var count int64
+	database.Database.Model(&models.Quiz{}).
+		Where("user_id = ?", userId).
+		Count(&count)
+	return count
 }

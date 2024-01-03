@@ -8,12 +8,12 @@ import (
 	"gorm.io/gorm"
 )
 
-type hosted_quiz struct{}
+type hostedQuiz struct{}
 
-var HostedQuiz hosted_quiz
+var HostedQuiz hostedQuiz
 
 // NewUniqueCode generates a unique code for a quiz to host
-func (hosted_quiz) NewUniqueCode() string {
+func (hostedQuiz) NewUniqueCode() string {
 	var publicKey int
 	for {
 		var count int64
@@ -31,7 +31,7 @@ func (hosted_quiz) NewUniqueCode() string {
 }
 
 // FindForUser returns a models.HostedQuiz by an id for a specific user
-func (hosted_quiz) FindForUser(id uint, userId uint) *models.HostedQuiz {
+func (hostedQuiz) FindForUser(id uint, userId uint) *models.HostedQuiz {
 	var hosted models.HostedQuiz
 	database.Database.Model(&hosted).
 		Joins("Quiz").
@@ -41,7 +41,7 @@ func (hosted_quiz) FindForUser(id uint, userId uint) *models.HostedQuiz {
 }
 
 // AllForUser returns a list of models.HostedQuiz by a quiz and a user id
-func (hosted_quiz) AllForUser(quizId uint, userId uint) []*models.HostedQuiz {
+func (hostedQuiz) AllForUser(quizId uint, userId uint) []*models.HostedQuiz {
 	var hosts []*models.HostedQuiz
 	database.Database.Model(&models.HostedQuiz{}).
 		Joins("Quiz").
@@ -52,7 +52,7 @@ func (hosted_quiz) AllForUser(quizId uint, userId uint) []*models.HostedQuiz {
 }
 
 // FindByPublicKeyWithQuizUser returns a models.HostedQuiz with a preloaded quiz that contains a preloaded user
-func (hosted_quiz) FindByPublicKeyWithQuizUser(publicKey string) *models.HostedQuiz {
+func (hostedQuiz) FindByPublicKeyWithQuizUser(publicKey string) *models.HostedQuiz {
 	var hostedQuiz models.HostedQuiz
 	database.Database.Model(&models.HostedQuiz{}).
 		Preload("Quiz", func(db *gorm.DB) *gorm.DB {
@@ -63,10 +63,18 @@ func (hosted_quiz) FindByPublicKeyWithQuizUser(publicKey string) *models.HostedQ
 	return &hostedQuiz
 }
 
-func (hosted_quiz) FindByPublicKey(publicKey string) *models.HostedQuiz {
+func (hostedQuiz) FindByPublicKey(publicKey string) *models.HostedQuiz {
 	var hostedQuiz models.HostedQuiz
 	database.Database.Model(&models.HostedQuiz{}).
 		Where("public_key = ?", publicKey).
 		Find(&hostedQuiz)
 	return &hostedQuiz
+}
+
+func (hostedQuiz) CountForQuizId(quizId uint) int64 {
+	var count int64
+	database.Database.Model(&models.HostedQuiz{}).
+		Where("quiz_id = ?", quizId).
+		Count(&count)
+	return count
 }

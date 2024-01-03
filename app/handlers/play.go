@@ -34,6 +34,10 @@ func (_playHandler) Play(c *fiber.Ctx) error {
 	return c.JSON(questions)
 }
 
+func (_playHandler) Submit(c *fiber.Ctx) error {
+	return c.SendString("Not implemented yet")
+}
+
 func (_playHandler) getHostedQuiz(publicKey string) (*models.HostedQuiz, error) {
 	hosted := repository.HostedQuiz.FindByPublicKeyWithQuizUser(publicKey)
 	if hosted.Id == 0 {

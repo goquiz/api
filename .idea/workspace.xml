@@ -4,13 +4,15 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="95fbee3e-205b-4652-8f74-5b2f375e56be" name="Changes" comment="some handlers updated and other fixes">
-      <change afterPath="$PROJECT_DIR$/app/handlers/play.go" afterDir="false" />
+    <list default="true" id="95fbee3e-205b-4652-8f74-5b2f375e56be" name="Changes" comment="hosts fixed">
+      <change afterPath="$PROJECT_DIR$/http/middleware/hcaptcha.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/handlers/host.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/handlers/host.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/handlers/play.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/handlers/play.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/handlers/quiz.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/handlers/quiz.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/repository/hosted_quiz.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/repository/hosted_quiz.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/repository/question.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/repository/question.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/models/question.go" beforeDir="false" afterPath="$PROJECT_DIR$/database/models/question.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/http/middleware/cors.go" beforeDir="false" afterPath="$PROJECT_DIR$/http/middleware/cors.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/repository/quiz.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/repository/quiz.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helpers/env.go" beforeDir="false" afterPath="$PROJECT_DIR$/helpers/env.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.go" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -29,12 +31,12 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "bndrmrtn"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;bndrmrtn&quot;
   }
-}]]></component>
+}</component>
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
@@ -72,6 +74,7 @@
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.maddyhome.idea.vim.ui.VimEmulationConfigurable&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -83,7 +86,9 @@
     <MESSAGE value="Create, Update, Destroy questions for auth user" />
     <MESSAGE value="hosts maintained, other little fixes, added readme" />
     <MESSAGE value="some handlers updated and other fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="some handlers updated and other fixes" />
+    <MESSAGE value="play and play info (without answer submission)" />
+    <MESSAGE value="hosts fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="hosts fixed" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

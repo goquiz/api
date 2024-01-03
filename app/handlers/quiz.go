@@ -32,6 +32,12 @@ func (q _quizHandler) WithQuestions(c *fiber.Ctx) error {
 }
 
 func (_quizHandler) Create(c *fiber.Ctx) error {
+	quizCount := repository.Quiz.CountForUser(authorized.Authorized.User.Id)
+
+	if quizCount >= 10 {
+		return errs.BadRequest(c, errors.New("cannot create more than 10 quiz"))
+	}
+
 	quizRequest := requests.QuizValidation
 	quiz := models.Quiz{
 		Name:   quizRequest.Name,

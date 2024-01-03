@@ -21,6 +21,12 @@ func (_host) New(c *fiber.Ctx) error {
 	if err != nil {
 		return errs.NotFound(c, err)
 	}
+
+	quizHostsCount := repository.HostedQuiz.CountForQuizId(quiz.Id)
+	if quizHostsCount >= 5 {
+		return errs.BadRequest(c, errors.New("cannot have more than 5 hosts for a quiz"))
+	}
+
 	hostId := repository.HostedQuiz.NewUniqueCode()
 	hostedQuiz := models.HostedQuiz{
 		PublicKey: hostId,
@@ -44,10 +50,16 @@ func (_host) All(c *fiber.Ctx) error {
 	idInt, _ := strconv.Atoi(c.Params("id"))
 	quizId := uint(idInt)
 	userId := authorized.Authorized.User.Id
+	quiz := repository.Quiz.ById(quizId)
+
+	if quiz.Id == 0 {
+		return errs.NotFound(c, errors.New("couldn't find this quiz"))
+	}
+
 	hostedQuizzes := repository.HostedQuiz.AllForUser(quizId, userId)
 	return c.JSON(fiber.Map{
 		"hosts": hostedQuizzes,
-		"quiz":  repository.Quiz.ById(quizId),
+		"quiz":  quiz,
 	})
 }
 

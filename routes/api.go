@@ -4,6 +4,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/goquiz/api/app/handlers"
 	"github.com/goquiz/api/app/requests"
+	"github.com/goquiz/api/helpers"
 	"github.com/goquiz/api/http/middleware"
 	"github.com/goquiz/api/http/sessions"
 )
@@ -17,7 +18,9 @@ func (_api) Add(app *fiber.App) {
 	api := app.Group("/api", sessions.NewGlobalSessionHandler)
 
 	api.Get("/", func(ctx *fiber.Ctx) error {
-		return ctx.SendString("Api is UP!")
+		return ctx.JSON(fiber.Map{
+			"hcaptcha_key": helpers.Env.HCaptcha.SiteKey,
+		})
 	})
 
 	api.Post("/login", requests.LoginRequest, handlers.AuthHandler.Login)
@@ -45,4 +48,5 @@ func (_api) Add(app *fiber.App) {
 	// Play routes
 	auth.Get("/play/:public_key<maxLen(8)>/info", handlers.PlayHandler.Info)
 	auth.Get("/play/:public_key<maxLen(8)>", handlers.PlayHandler.Play)
+	auth.Post("/play/:public_key<maxLen(8)>", middleware.HCaptcha.New, handlers.PlayHandler.Submit)
 }
