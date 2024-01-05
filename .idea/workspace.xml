@@ -5,28 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="95fbee3e-205b-4652-8f74-5b2f375e56be" name="Changes" comment="completed.go added so users now can see their solved quizzes and answers, plus added handler description, plus host_completions.go added to check who completed the quiz and the score">
-      <change afterPath="$PROJECT_DIR$/app/handlers/completed.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/handlers/host_completions.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/repository/user_answer.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/requests/answers.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/requests/play.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/models/user_answer.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/handlers/auth.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/handlers/auth.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/handlers/host.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/handlers/host.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/handlers/me.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/handlers/me.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/handlers/play.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/handlers/play.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/handlers/quiz.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/handlers/quiz.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/repository/hosted_quiz.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/repository/hosted_quiz.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/database.go" beforeDir="false" afterPath="$PROJECT_DIR$/database/database.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/models/answer.go" beforeDir="false" afterPath="$PROJECT_DIR$/database/models/answer.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/models/hosted_quiz.go" beforeDir="false" afterPath="$PROJECT_DIR$/database/models/hosted_quiz.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/models/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/database/models/user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/http/middleware/hcaptcha.go" beforeDir="false" afterPath="$PROJECT_DIR$/http/middleware/hcaptcha.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.go" beforeDir="false" afterPath="$PROJECT_DIR$/routes/v1.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +41,7 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="QODANA_PROBLEMS_VIEW_TAB" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -94,11 +73,6 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="QodanaReportsService">
-    <option name="descriptions">
-      <ReportDescription localRun="true" path="C:\Users\bndrm\AppData\Local\Temp\qodana_output\qodana.sarif.json" reportGuid="3d3dcad1-63d9-432b-ab88-dc85bd648403" reportId="quiz_app/qodana/2024-01-03" />
-    </option>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
