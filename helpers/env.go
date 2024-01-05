@@ -35,12 +35,18 @@ type redisEnv struct {
 	Password string `env:"REDIS_PASSWORD"`
 }
 
+type hCaptchaEnv struct {
+	SiteKey   string `env:"HCAPTCHA_SITE_KEY"`
+	SecretKey string `env:"HCAPTCHA_SECRET_KEY"`
+}
+
 type env struct {
 	ServerPort string `env:"SERVER_PORT"`
 	Session    sessionEnv
 	Database   databaseEnv
 	Redis      redisEnv
 	Cors       corsEnv
+	HCaptcha   hCaptchaEnv
 }
 
 var Env env

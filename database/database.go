@@ -27,6 +27,7 @@ func Connect() {
 
 	log.Println("Running migrations")
 	err = db.AutoMigrate(
+		&models.UserAnswer{},
 		&models.Answer{},
 		&models.HostedQuiz{},
 		&models.Question{},

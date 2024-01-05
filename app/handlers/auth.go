@@ -19,6 +19,7 @@ type _authHandler struct{}
 
 var AuthHandler _authHandler
 
+// Login authorize the user's credentials and returns a session if successful
 func (_authHandler) Login(c *fiber.Ctx) error {
 	defer sessions.Global.Save()
 	userRequest := requests.LoginValidation
@@ -45,6 +46,7 @@ func (_authHandler) Login(c *fiber.Ctx) error {
 	})
 }
 
+// Register creates a new user with the given credentials
 func (_authHandler) Register(c *fiber.Ctx) error {
 	userRequest := requests.RegisterValidation
 	defer sessions.Global.Save()
@@ -73,6 +75,7 @@ func (_authHandler) Register(c *fiber.Ctx) error {
 	})
 }
 
+// Logout logs out the user
 func (_authHandler) Logout(c *fiber.Ctx) error {
 	err := sessions.Global.Destroy()
 	if err != nil {
@@ -89,6 +92,7 @@ func (_authHandler) RequestNewPassword(*fiber.Ctx) error {
 }
 */
 
+// passwordHash hashes the user's password with a given, or a random salt
 func passwordHash(p string, s string) (string, string, error) {
 	if s == "" {
 		s = helpers.NewRandom().String(25)

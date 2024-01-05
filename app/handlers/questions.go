@@ -25,6 +25,10 @@ func (q _questionHandler) Create(c *fiber.Ctx) error {
 		return errs.NotFound(c, err)
 	}
 
+	if repository.Quiz.QuestionsCount(quiz.Id) >= 15 {
+		return errs.BadRequest(c, errors.New("you already added all the allowed questions"))
+	}
+
 	answers, err := q.checkRequestAnswers(c)
 	if err != nil {
 		return errs.BadRequest(c, err)
