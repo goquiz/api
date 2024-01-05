@@ -78,3 +78,25 @@ func (hostedQuiz) CountForQuizId(quizId uint) int64 {
 		Count(&count)
 	return count
 }
+
+func (hostedQuiz) PaginateSubmissions(hostId uint, c int, p int) *models.HostedQuiz {
+	offset := c * (p - 1) // the count of the quizzes multiplied by the page (-1 required cuz page 1 has no offset)
+
+	var submission *models.HostedQuiz
+
+	database.Database.Model(&models.HostedQuiz{}).
+		Select("id, name").
+		Preload("UserAnswers", func(db *gorm.DB) *gorm.DB {
+			return db.Preload("User", func(db *gorm.DB) *gorm.DB {
+				return db.Select("id, username, profile_image_url")
+			}).
+				Preload("Answers", func(db *gorm.DB) *gorm.DB {
+					return db.Preload("Question")
+				}).Limit(c).Offset(offset)
+		}).
+		Order("updated_at desc").
+		Where("id = ?", hostId).
+		Find(&submission)
+
+	return submission
+}

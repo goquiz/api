@@ -9,13 +9,13 @@ import (
 	"github.com/goquiz/api/http/sessions"
 )
 
-type _api struct{}
+type _apiV1 struct{}
 
-var Api _api
+var ApiV1 _apiV1
 
-func (_api) Add(app *fiber.App) {
+func (_apiV1) Add(app *fiber.App) {
 	// api group
-	api := app.Group("/api", sessions.NewGlobalSessionHandler)
+	api := app.Group("/v1", sessions.NewGlobalSessionHandler)
 
 	api.Get("/", func(ctx *fiber.Ctx) error {
 		return ctx.JSON(fiber.Map{
@@ -48,5 +48,10 @@ func (_api) Add(app *fiber.App) {
 	// Play routes
 	auth.Get("/play/:public_key<maxLen(8)>/info", handlers.PlayHandler.Info)
 	auth.Get("/play/:public_key<maxLen(8)>", handlers.PlayHandler.Play)
-	auth.Post("/play/:public_key<maxLen(8)>", middleware.HCaptcha.New, handlers.PlayHandler.Submit)
+	auth.Post("/play/:public_key<maxLen(8)>", middleware.HCaptcha.New, requests.PlayRequest, handlers.PlayHandler.Submit)
+	// Completed quizzes
+	auth.Get("/completed", handlers.CompletedHandler.PaginateAll)
+	auth.Get("/completed/:quizId<int>", handlers.CompletedHandler.FindOne)
+	// Completed for host
+	auth.Get("/completed/host/:hostId<int>", handlers.HostCompletionsHandler.Paginate)
 }

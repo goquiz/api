@@ -16,6 +16,7 @@ type _host struct{}
 
 var HostHandler _host
 
+// New creates a new host for a quiz
 func (_host) New(c *fiber.Ctx) error {
 	quiz, err := QuizHandler.GetQuiz(c)
 	if err != nil {
@@ -46,6 +47,7 @@ func (_host) New(c *fiber.Ctx) error {
 	})
 }
 
+// All returns all the hosts for a given quiz
 func (_host) All(c *fiber.Ctx) error {
 	idInt, _ := strconv.Atoi(c.Params("id"))
 	quizId := uint(idInt)
@@ -63,6 +65,7 @@ func (_host) All(c *fiber.Ctx) error {
 	})
 }
 
+// ChangeActive changes the quiz activity (it sets or deletes the publicKey)
 func (h _host) ChangeActive(c *fiber.Ctx) error {
 	type IsActive struct {
 		IsActive bool `json:"is_active"`
@@ -93,6 +96,7 @@ func (h _host) ChangeActive(c *fiber.Ctx) error {
 	})
 }
 
+// Destroy deletes a hosted_quiz
 func (h _host) Destroy(c *fiber.Ctx) error {
 	hosted, err := h.GetUserHost(c)
 	if err != nil {
@@ -104,6 +108,7 @@ func (h _host) Destroy(c *fiber.Ctx) error {
 	})
 }
 
+// GetUserHost returns a models.HostedQuiz by the route "hostId" parameter
 func (_host) GetUserHost(c *fiber.Ctx) (*models.HostedQuiz, error) {
 	idInt, _ := strconv.Atoi(c.Params("hostId"))
 	id := uint(idInt)

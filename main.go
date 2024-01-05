@@ -15,7 +15,7 @@ func main() {
 	database.Connect()
 	app.Use(middleware.NewCors())
 
-	routes.Api.Add(app)
+	routes.ApiV1.Add(app)
 
 	app.Use(routes.NewNotFoundPage)
 

@@ -35,7 +35,7 @@ func (h hCaptcha) New(c *fiber.Ctx) error {
 		return errs.BadRequest(c, err)
 	}
 
-	if status {
+	if status == true {
 		return c.Next()
 	} else {
 		return errs.BadRequest(c, m)
@@ -51,7 +51,6 @@ func (hCaptcha) Validate(token string) (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	defer res.Body.Close()
 
 	o := struct {
 		Success bool `json:"success"`
@@ -62,6 +61,8 @@ func (hCaptcha) Validate(token string) (bool, error) {
 	if err != nil {
 		return false, err
 	}
+
+	_ = res.Body.Close()
 
 	return o.Success, nil
 }

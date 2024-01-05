@@ -16,6 +16,7 @@ type _quizHandler struct{}
 
 var QuizHandler _quizHandler
 
+// All returns all the quizzes for the authenticated user
 func (_quizHandler) All(c *fiber.Ctx) error {
 	quizzes := repository.Quiz.AllForUser(authorized.Authorized.User.Id)
 	return c.JSON(fiber.Map{
@@ -23,6 +24,7 @@ func (_quizHandler) All(c *fiber.Ctx) error {
 	})
 }
 
+// WithQuestions returns a quiz with all the questions for the authenticated user
 func (q _quizHandler) WithQuestions(c *fiber.Ctx) error {
 	quiz, err := q.GetQuiz(c)
 	if err != nil {
@@ -31,6 +33,7 @@ func (q _quizHandler) WithQuestions(c *fiber.Ctx) error {
 	return c.JSON(quiz)
 }
 
+// Create creates a quiz for the authenticated user
 func (_quizHandler) Create(c *fiber.Ctx) error {
 	quizCount := repository.Quiz.CountForUser(authorized.Authorized.User.Id)
 
@@ -50,6 +53,7 @@ func (_quizHandler) Create(c *fiber.Ctx) error {
 	})
 }
 
+// Update updates a quiz for the authenticated user
 func (q _quizHandler) Update(c *fiber.Ctx) error {
 	quiz, err := q.GetQuiz(c)
 	if err != nil {
@@ -64,6 +68,7 @@ func (q _quizHandler) Update(c *fiber.Ctx) error {
 	})
 }
 
+// Destroy destroys a quiz for the authenticated user
 func (q _quizHandler) Destroy(c *fiber.Ctx) error {
 	quiz, err := q.GetQuiz(c)
 	if err != nil {
@@ -75,6 +80,7 @@ func (q _quizHandler) Destroy(c *fiber.Ctx) error {
 	})
 }
 
+// GetQuiz returns a quiz by the route param "id", globally
 func (_quizHandler) GetQuiz(c *fiber.Ctx) (*models.Quiz, error) {
 	idInt, _ := strconv.Atoi(c.Params("id"))
 	id := uint(idInt)
