@@ -1,12 +1,11 @@
 package models
 
 import (
-	"gorm.io/gorm"
 	"time"
 )
 
 type User struct {
-	gorm.Model      `json:"-"`
+	Base            `json:"-"`
 	Id              uint       `json:"id" gorm:"primaryKey"`
 	Username        string     `json:"username" gorm:"username"`
 	Email           string     `json:"email" gorm:"email"`
@@ -14,5 +13,5 @@ type User struct {
 	ProfileImageURL *string    `json:"profile_image_url,omitempty" gorm:"profile_image_url,default:null"`
 	Password        string     `json:"-" gorm:"password"`
 	PasswordSalt    string     `json:"-" gorm:"password_salt"`
-	Quizzes         []Quiz     `json:"quizzes,omitempty" gorm:"foreignKey:UserId"`
+	Quizzes         []Quiz     `json:"quizzes,omitempty" gorm:"constraint:OnDelete:CASCADE;foreignKey:UserId"`
 }
