@@ -1,8 +1,6 @@
 package handlers
 
 import (
-	"crypto/sha256"
-	"encoding/hex"
 	"errors"
 	"fmt"
 	"github.com/gofiber/fiber/v2"
@@ -13,6 +11,10 @@ import (
 	"github.com/goquiz/api/helpers"
 	"github.com/goquiz/api/http/errs"
 	"github.com/goquiz/api/http/sessions"
+	"golang.org/x/crypto/bcrypt"
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
+	"time"
 )
 
 type _authHandler struct{}
@@ -29,13 +31,12 @@ func (_authHandler) Login(c *fiber.Ctx) error {
 		return errs.Unauthorized(c, err)
 	}
 
-	password, _, err := passwordHash(userRequest.Password, user.PasswordSalt)
-	if err != nil {
-		return errs.InternalServerError(c, err)
+	if !passwordCompare(user.Password, userRequest.Password, user.PasswordSalt) {
+		return errs.Unauthorized(c, errors.New("invalid username or password"))
 	}
 
-	if password != user.Password {
-		return errs.Unauthorized(c, errors.New("invalid username or password"))
+	if user.EmailVerifiedAt == nil {
+		return errs.BadRequest(c, errors.New("verify your email address before login"))
 	}
 
 	sessions.Global.Set("authorized.user_id", user.Id)
@@ -69,7 +70,29 @@ func (_authHandler) Register(c *fiber.Ctx) error {
 	}
 
 	database.Database.Model(&models.User{}).Create(&user)
-	sessions.Global.Set("authorized.user_id", user.Id)
+
+	emailVerificationToken := repository.User.NewTokenFor(&models.EmailVerification{})
+
+	emailVerification := models.EmailVerification{
+		UserId:     user.Id,
+		Token:      emailVerificationToken,
+		Expiration: time.Now().Add(time.Hour * 3),
+	}
+
+	database.Database.Save(&emailVerification)
+
+	mail := helpers.NewMail("noreply@quizzes.lol", user.Email)
+	mail.Subject("Email verification")
+	mail.Body(
+		fmt.Sprintf("Hi %v,<br/>Please click <a href=\"https://quizzes.lol/email-verification/%v\">here</a> to verify your email address.<br/><br/>- We never ask for passwords or credentials via email.", cases.Title(language.English).String(user.Username), emailVerificationToken),
+		true,
+	)
+
+	err = mail.Send()
+	if err != nil {
+		return errs.InternalServerError(c, err)
+	}
+
 	return c.JSON(fiber.Map{
 		"message": "Successfully registered",
 	})
@@ -86,11 +109,81 @@ func (_authHandler) Logout(c *fiber.Ctx) error {
 	})
 }
 
-/* currently no email service
-func (_authHandler) RequestNewPassword(*fiber.Ctx) error {
-	//username := requests.ResetPasswordValidation.Username
+// VerifyEmailAddress verifies the email for a user to be able to use the app
+func (_authHandler) VerifyEmailAddress(c *fiber.Ctx) error {
+	token := c.Params("token")
+	emailVerification, err := repository.User.EmailVerification(token)
+	if err != nil {
+		return errs.NotFound(c, err)
+	}
+
+	user := emailVerification.User
+	verifiedAt := time.Now()
+	user.EmailVerifiedAt = &verifiedAt
+	database.Database.Save(&user)
+	database.Database.Delete(&emailVerification)
+
+	return c.JSON(fiber.Map{
+		"message": "Successfully verified",
+	})
 }
-*/
+
+func (_authHandler) RequestNewPassword(c *fiber.Ctx) error {
+	username := requests.RequestNewPasswordValidation.Username
+	user, err := repository.User.FindByUsername(username)
+	if err != nil {
+		return errs.NotFound(c, err)
+	}
+
+	if repository.User.HasRequestedNewPassword(user.Id) == true {
+		return errs.BadRequest(c, errors.New("you have already requested a password reset"))
+	}
+
+	resetPasswordToken := repository.User.NewTokenFor(&models.ResetPassword{})
+
+	resetPassword := &models.ResetPassword{
+		UserId:     user.Id,
+		Token:      resetPasswordToken,
+		Expiration: time.Now().Add(time.Hour * 3),
+	}
+	database.Database.Create(&resetPassword)
+
+	mail := helpers.NewMail("noreply@quizzes.lol", user.Email)
+	mail.Subject("Reset your password")
+	mail.Body(
+		fmt.Sprintf("Hi %v,<br/>Please click <a href=\"https://quizzes.lol/reset-password/%v\">here</a> to change your password.<br/><br/>- We never ask for passwords or credentials via email.", cases.Title(language.English).String(user.Username), resetPasswordToken),
+		true,
+	)
+
+	return c.JSON(fiber.Map{
+		"message": "Reset password email sent",
+	})
+}
+
+func (_authHandler) ChangePassword(c *fiber.Ctx) error {
+	token := c.Params("token")
+	resetPassword, err := repository.User.ResetPassword(token)
+
+	if err != nil {
+		return errs.NotFound(c, err)
+	}
+
+	rawPassword := requests.ResetPasswordValidation.Password
+	user := resetPassword.User
+	password, salt, err := passwordHash(rawPassword, "")
+
+	if err != nil {
+		return errs.InternalServerError(c, err)
+	}
+
+	user.Password = password
+	user.PasswordSalt = salt
+	database.Database.Save(&user)
+
+	return c.JSON(fiber.Map{
+		"message": "Password successfully changed",
+	})
+}
 
 // passwordHash hashes the user's password with a given, or a random salt
 func passwordHash(p string, s string) (string, string, error) {
@@ -98,12 +191,16 @@ func passwordHash(p string, s string) (string, string, error) {
 		s = helpers.NewRandom().String(25)
 	}
 
-	hash := sha256.New()
-	var err error
-	_, err = hash.Write([]byte(p))
+	bytes, err := bcrypt.GenerateFromPassword([]byte(p+s), 14)
+
 	if err != nil {
 		return "", "", err
 	}
 
-	return hex.EncodeToString(hash.Sum([]byte(s))), s, nil
+	return string(bytes), s, nil
+}
+
+func passwordCompare(h string, p string, s string) bool {
+	err := bcrypt.CompareHashAndPassword([]byte(h), []byte(p+s))
+	return err == nil
 }

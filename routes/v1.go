@@ -26,6 +26,9 @@ func (_apiV1) Add(app *fiber.App) {
 	api.Post("/login", requests.LoginRequest, handlers.AuthHandler.Login)
 	api.Post("/register", requests.RegisterRequest, handlers.AuthHandler.Register)
 	api.Get("/logout", handlers.AuthHandler.Logout)
+	api.Get("/email-verification/:token", handlers.AuthHandler.VerifyEmailAddress)
+	api.Post("/reset-password/request", requests.RequestNewPasswordRequest, handlers.AuthHandler.RequestNewPassword)
+	api.Post("/reset-password/change/:token", requests.ResetPasswordRequest, handlers.AuthHandler.ChangePassword)
 
 	// authenticated group
 	auth := api.Group("/", middleware.AuthMiddleware.Auth)

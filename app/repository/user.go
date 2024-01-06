@@ -1,9 +1,12 @@
 package repository
 
 import (
+	"errors"
 	"fmt"
 	"github.com/goquiz/api/database"
 	"github.com/goquiz/api/database/models"
+	"github.com/goquiz/api/helpers"
+	"time"
 )
 
 type user struct{}
@@ -38,7 +41,7 @@ func (u user) FindById(id uint) (models.User, error) {
 
 // FindBy returns the user with the given fields and values or an error
 func (user) FindBy(fields []string, values ...interface{}) (models.User, error) {
-	var user models.User
+	var u models.User
 	var query string
 	for _, f := range fields {
 		query += fmt.Sprintf(" %v = ?", f)
@@ -46,12 +49,65 @@ func (user) FindBy(fields []string, values ...interface{}) (models.User, error) 
 	err := database.Database.Model(models.User{}).
 		Where(query, values...).
 		Limit(1).
-		Find(&user).
+		Find(&u).
 		Error
 
 	if err != nil {
-		return user, err
+		return u, err
 	}
 
-	return user, nil
+	return u, nil
+}
+
+func (user) EmailVerification(t string) (*models.EmailVerification, error) {
+	var ev *models.EmailVerification
+	database.Database.Model(&models.EmailVerification{}).
+		Preload("User").
+		Where("token = ? and expiration > ?", t, time.Now()).
+		Find(&ev)
+	if ev.Id == 0 {
+		return nil, errors.New("invalid or expired verification token")
+	}
+
+	return ev, nil
+}
+
+func (user) HasRequestedNewPassword(uId uint) bool {
+	var count int64
+	database.Database.Model(&models.EmailVerification{}).
+		Joins("User").
+		Where("email_verifications.expire > ? and User.id = ?", time.Now(), uId).
+		Limit(1).
+		Count(&count)
+	return count > 0
+}
+
+func (user) ResetPassword(t string) (*models.ResetPassword, error) {
+	var rp *models.ResetPassword
+	database.Database.Model(&models.ResetPassword{}).
+		Preload("User").
+		Where("token = ? and expiration > ?", t, time.Now()).
+		Find(&rp)
+	if rp.Id == 0 {
+		return nil, errors.New("invalid or expired reset password token")
+	}
+
+	return rp, nil
+}
+
+func (user) NewTokenFor(model interface{}) string {
+	var token string
+	for {
+		var count int64
+		random := helpers.NewRandom()
+		token = random.String(random.Number(15, 50))
+		database.Database.Model(&model).
+			Where("token = ?", token).
+			Limit(1).
+			Count(&count)
+		if count == 0 {
+			break
+		}
+	}
+	return token
 }

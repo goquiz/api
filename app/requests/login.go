@@ -6,7 +6,7 @@ import (
 
 type _loginValidation struct {
 	Username string `json:"username" validate:"required,min=3,max=15,alphanumunicode"`
-	Password string `json:"password" validate:"required,min=10,max=25"`
+	Password string `json:"password" validate:"required,min=10,max=55"`
 }
 
 var LoginValidation _loginValidation
