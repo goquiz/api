@@ -40,6 +40,13 @@ type hCaptchaEnv struct {
 	SecretKey string `env:"HCAPTCHA_SECRET_KEY"`
 }
 
+type emailEnv struct {
+	SMTPHost string `env:"EMAIL_SMTP_HOST"`
+	SMTPPort int    `env:"EMAIL_SMTP_PORT"`
+	Username string `env:"EMAIL_USERNAME"`
+	Password string `env:"EMAIL_PASSWORD"`
+}
+
 type env struct {
 	ServerPort string `env:"SERVER_PORT"`
 	Session    sessionEnv
@@ -47,6 +54,7 @@ type env struct {
 	Redis      redisEnv
 	Cors       corsEnv
 	HCaptcha   hCaptchaEnv
+	Email      emailEnv
 }
 
 var Env env

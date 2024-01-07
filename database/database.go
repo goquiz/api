@@ -33,6 +33,7 @@ func Connect() {
 		&models.Question{},
 		&models.Quiz{},
 		&models.ResetPassword{},
+		&models.EmailVerification{},
 		&models.User{},
 	)
 	if err != nil {
