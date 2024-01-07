@@ -76,7 +76,7 @@ func (user) HasRequestedNewPassword(uId uint) bool {
 	var count int64
 	database.Database.Model(&models.EmailVerification{}).
 		Joins("User").
-		Where("email_verifications.expire > ? and User.id = ?", time.Now(), uId).
+		Where("email_verifications.expiration > ? and User.id = ?", time.Now(), uId).
 		Limit(1).
 		Count(&count)
 	return count > 0
@@ -100,7 +100,7 @@ func (user) NewTokenFor(model interface{}) string {
 	for {
 		var count int64
 		random := helpers.NewRandom()
-		token = random.String(random.Number(15, 50))
+		token = random.String(random.Number(50, 150))
 		database.Database.Model(&model).
 			Where("token = ?", token).
 			Limit(1).

@@ -81,7 +81,7 @@ func (_authHandler) Register(c *fiber.Ctx) error {
 
 	database.Database.Save(&emailVerification)
 
-	mail := helpers.NewMail("noreply@quizzes.lol", user.Email)
+	mail := helpers.NewMail("Quizzes.LOL<noreply@quizzes.lol>", user.Email)
 	mail.Subject("Email verification")
 	mail.Body(
 		fmt.Sprintf("Hi %v,<br/>Please click <a href=\"https://quizzes.lol/email-verification/%v\">here</a> to verify your email address.<br/><br/>- We never ask for passwords or credentials via email.", cases.Title(language.English).String(user.Username), emailVerificationToken),
@@ -148,12 +148,17 @@ func (_authHandler) RequestNewPassword(c *fiber.Ctx) error {
 	}
 	database.Database.Create(&resetPassword)
 
-	mail := helpers.NewMail("noreply@quizzes.lol", user.Email)
+	mail := helpers.NewMail("Quizzes.LOL<noreply@quizzes.lol>", user.Email)
 	mail.Subject("Reset your password")
 	mail.Body(
 		fmt.Sprintf("Hi %v,<br/>Please click <a href=\"https://quizzes.lol/reset-password/%v\">here</a> to change your password.<br/><br/>- We never ask for passwords or credentials via email.", cases.Title(language.English).String(user.Username), resetPasswordToken),
 		true,
 	)
+
+	err = mail.Send()
+	if err != nil {
+		return errs.InternalServerError(c, err)
+	}
 
 	return c.JSON(fiber.Map{
 		"message": "Reset password email sent",
