@@ -10,10 +10,10 @@ type userAnswer struct{}
 
 var UserAnswer userAnswer
 
-func (userAnswer) IsUserAlreadyPlayed(quizId uint, userId uint) bool {
+func (userAnswer) IsUserAlreadyPlayed(hostedQuizId uint, userId uint) bool {
 	var count int64
 	database.Database.Model(&models.UserAnswer{}).
-		Where("quiz_id = ? and user_id = ?", quizId, userId).
+		Where("hosted_quiz_id = ? and user_id = ?", hostedQuizId, userId).
 		Limit(1).
 		Count(&count)
 

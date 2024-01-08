@@ -15,7 +15,7 @@ type _playHandler struct{}
 
 var PlayHandler _playHandler
 
-// Info returns the informations about the quiz
+// Info returns the information about the quiz
 func (p _playHandler) Info(c *fiber.Ctx) error {
 	hosted, err := p.getHostedQuiz(c.Params("public_key"))
 
@@ -40,7 +40,7 @@ func (p _playHandler) Play(c *fiber.Ctx) error {
 		return errs.NotFound(c, errors.New("couldn't find this hosted quiz"))
 	}
 
-	if err := p.canAuthUserPlay(hosted.QuizId); err != nil {
+	if err := p.canAuthUserPlay(hosted.Id); err != nil {
 		return errs.BadRequest(c, err)
 	}
 
@@ -56,7 +56,7 @@ func (p _playHandler) Submit(c *fiber.Ctx) error {
 		return errs.NotFound(c, errors.New("couldn't find this hosted quiz"))
 	}
 
-	if err := p.canAuthUserPlay(hosted.QuizId); err != nil {
+	if err := p.canAuthUserPlay(hosted.Id); err != nil {
 		return errs.BadRequest(c, err)
 	}
 
@@ -109,8 +109,8 @@ func (_playHandler) getHostedQuiz(publicKey string) (*models.HostedQuiz, error) 
 }
 
 // canAuthUserPlay returns an error if the authenticated user already played the quiz before
-func (_playHandler) canAuthUserPlay(quizId uint) error {
-	canPlay := !repository.UserAnswer.IsUserAlreadyPlayed(quizId, authorized.Authorized.User.Id)
+func (_playHandler) canAuthUserPlay(hostedQuizId uint) error {
+	canPlay := !repository.UserAnswer.IsUserAlreadyPlayed(hostedQuizId, authorized.Authorized.User.Id)
 	if canPlay == true {
 		return nil
 	}

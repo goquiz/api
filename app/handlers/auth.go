@@ -14,6 +14,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
+	"strings"
 	"time"
 )
 
@@ -26,7 +27,7 @@ func (_authHandler) Login(c *fiber.Ctx) error {
 	defer sessions.Global.Save()
 	userRequest := requests.LoginValidation
 
-	user, err := repository.User.FindByUsername(userRequest.Username)
+	user, err := repository.User.FindByUsername(strings.ToLower(userRequest.Username))
 	if err != nil {
 		return errs.Unauthorized(c, err)
 	}
@@ -52,7 +53,7 @@ func (_authHandler) Register(c *fiber.Ctx) error {
 	userRequest := requests.RegisterValidation
 	defer sessions.Global.Save()
 
-	if repository.User.IsUsernameOrEmailExists(userRequest.Username, userRequest.Email) {
+	if repository.User.IsUsernameOrEmailExists(strings.ToLower(userRequest.Username), strings.ToLower(userRequest.Email)) {
 		return errs.BadRequest(c, errors.New("user already exists with this username or email address"))
 	}
 
@@ -63,7 +64,7 @@ func (_authHandler) Register(c *fiber.Ctx) error {
 	}
 
 	user := models.User{
-		Username:     userRequest.Username,
+		Username:     strings.ToLower(userRequest.Username),
 		Email:        userRequest.Email,
 		Password:     password,
 		PasswordSalt: passwordSalt,
@@ -129,7 +130,7 @@ func (_authHandler) VerifyEmailAddress(c *fiber.Ctx) error {
 }
 
 func (_authHandler) RequestNewPassword(c *fiber.Ctx) error {
-	username := requests.RequestNewPasswordValidation.Username
+	username := strings.ToLower(requests.RequestNewPasswordValidation.Username)
 	user, err := repository.User.FindByUsername(username)
 	if err != nil {
 		return errs.NotFound(c, err)
