@@ -7,7 +7,7 @@ import (
 type _registerValidation struct {
 	Username string `json:"username" validate:"required,min=3,max=15,alphanumunicode"`
 	Email    string `json:"email" validate:"required,email"`
-	Password string `json:"password" validate:"required,min=10,max=25"`
+	Password string `json:"password" validate:"required,min=10,max=55"`
 }
 
 var RegisterValidation _registerValidation
