@@ -82,17 +82,22 @@ func (_authHandler) Register(c *fiber.Ctx) error {
 
 	database.Database.Save(&emailVerification)
 
-	mail := helpers.NewMail("Quizzes.LOL<noreply@quizzes.lol>", user.Email)
-	mail.Subject("Email verification")
-	mail.Body(
-		fmt.Sprintf("Hi %v,<br/>Please click <a href=\"https://quizzes.lol/email-verification/%v\">here</a> to verify your email address.<br/><br/>- We never ask for passwords or credentials via email.", cases.Title(language.English).String(user.Username), emailVerificationToken),
-		true,
-	)
-
-	err = mail.Send()
-	if err != nil {
-		return errs.InternalServerError(c, err)
-	}
+	go func() {
+		mail := helpers.NewMail("Quizzes.LOL<noreply@quizzes.lol>", user.Email)
+		mail.Subject("Email verification")
+		mail.TemplateBody(
+			"email-verification",
+			map[string]string{
+				"username":        cases.Title(language.English).String(user.Username),
+				"verificationURL": "https://quizzes.lol/email-verification/" + emailVerificationToken,
+			},
+			fmt.Sprintf("Hi %v,<br/>Please click <a href=\"https://quizzes.lol/email-verification/%v\">here</a> to verify your email address.<br/><br/>- We never ask for passwords or credentials via email.", cases.Title(language.English).String(user.Username), emailVerificationToken),
+		)
+		err = mail.Send()
+		if err != nil {
+			fmt.Println("Failed to send email:", err)
+		}
+	}()
 
 	return c.JSON(fiber.Map{
 		"message": "Successfully registered",
@@ -149,17 +154,22 @@ func (_authHandler) RequestNewPassword(c *fiber.Ctx) error {
 	}
 	database.Database.Create(&resetPassword)
 
-	mail := helpers.NewMail("Quizzes.LOL<noreply@quizzes.lol>", user.Email)
-	mail.Subject("Reset your password")
-	mail.Body(
-		fmt.Sprintf("Hi %v,<br/>Please click <a href=\"https://quizzes.lol/reset-password/%v\">here</a> to change your password.<br/><br/>- We never ask for passwords or credentials via email.", cases.Title(language.English).String(user.Username), resetPasswordToken),
-		true,
-	)
-
-	err = mail.Send()
-	if err != nil {
-		return errs.InternalServerError(c, err)
-	}
+	go func() {
+		mail := helpers.NewMail("Quizzes.LOL<noreply@quizzes.lol>", user.Email)
+		mail.Subject("Reset your password")
+		mail.TemplateBody(
+			"reset-password",
+			map[string]string{
+				"username":         cases.Title(language.English).String(user.Username),
+				"resetPasswordURL": "https://quizzes.lol/reset-password/" + resetPasswordToken,
+			},
+			fmt.Sprintf("Hi %v,<br/>Please click <a href=\"https://quizzes.lol/reset-password/%v\">here</a> to change your password.<br/><br/>- We never ask for passwords or credentials via email.", cases.Title(language.English).String(user.Username), resetPasswordToken),
+		)
+		err = mail.Send()
+		if err != nil {
+			fmt.Println("Failed to send email:", err)
+		}
+	}()
 
 	return c.JSON(fiber.Map{
 		"message": "Reset password email sent",

@@ -37,7 +37,7 @@ func Connect() {
 		&models.User{},
 	)
 	if err != nil {
-		panic("Failed to migrate: " + err.Error())
+		log.Fatal("Failed to migrate: " + err.Error())
 	}
 
 	Database = db
