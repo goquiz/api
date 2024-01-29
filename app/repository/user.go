@@ -74,9 +74,9 @@ func (user) EmailVerification(t string) (*models.EmailVerification, error) {
 
 func (user) HasRequestedNewPassword(uId uint) bool {
 	var count int64
-	database.Database.Model(&models.EmailVerification{}).
+	database.Database.Model(&models.ResetPassword{}).
 		Joins("User").
-		Where("email_verifications.expiration > ? and User.id = ?", time.Now(), uId).
+		Where("reset_passwords.expiration > ? and User.id = ?", time.Now(), uId).
 		Limit(1).
 		Count(&count)
 	return count > 0
