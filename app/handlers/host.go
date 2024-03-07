@@ -2,14 +2,14 @@ package handlers
 
 import (
 	"errors"
+	"strconv"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/goquiz/api/app/repository"
 	"github.com/goquiz/api/app/requests"
 	"github.com/goquiz/api/database"
 	"github.com/goquiz/api/database/models"
-	"github.com/goquiz/api/http/authorized"
 	"github.com/goquiz/api/http/errs"
-	"strconv"
 )
 
 type _host struct{}
@@ -51,7 +51,7 @@ func (_host) New(c *fiber.Ctx) error {
 func (_host) All(c *fiber.Ctx) error {
 	idInt, _ := strconv.Atoi(c.Params("id"))
 	quizId := uint(idInt)
-	userId := authorized.Authorized.User.Id
+	userId := GetAuthUser(c).Id
 	quiz := repository.Quiz.ById(quizId)
 
 	if quiz.Id == 0 {
@@ -112,7 +112,7 @@ func (h _host) Destroy(c *fiber.Ctx) error {
 func (_host) GetUserHost(c *fiber.Ctx) (*models.HostedQuiz, error) {
 	idInt, _ := strconv.Atoi(c.Params("hostId"))
 	id := uint(idInt)
-	hosted := repository.HostedQuiz.FindForUser(id, authorized.Authorized.User.Id)
+	hosted := repository.HostedQuiz.FindForUser(id, GetAuthUser(c).Id)
 	if hosted.Id == 0 {
 		return nil, errors.New("this host could not be found or does not belongs to you")
 	}

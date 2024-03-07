@@ -3,6 +3,9 @@ package handlers
 import (
 	"errors"
 	"fmt"
+	"strings"
+	"time"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/goquiz/api/app/repository"
 	"github.com/goquiz/api/app/requests"
@@ -14,8 +17,6 @@ import (
 	"golang.org/x/crypto/bcrypt"
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
-	"strings"
-	"time"
 )
 
 type _authHandler struct{}
@@ -219,4 +220,8 @@ func passwordHash(p string, s string) (string, string, error) {
 func passwordCompare(h string, p string, s string) bool {
 	err := bcrypt.CompareHashAndPassword([]byte(h), []byte(p+s))
 	return err == nil
+}
+
+func GetAuthUser(c *fiber.Ctx) *models.User {
+	return c.Locals("auth.user").(*models.User)
 }

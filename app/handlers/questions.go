@@ -3,15 +3,15 @@ package handlers
 import (
 	"encoding/json"
 	"errors"
+	"slices"
+	"strconv"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/goquiz/api/app/repository"
 	"github.com/goquiz/api/app/requests"
 	"github.com/goquiz/api/database"
 	"github.com/goquiz/api/database/models"
-	"github.com/goquiz/api/http/authorized"
 	"github.com/goquiz/api/http/errs"
-	"slices"
-	"strconv"
 )
 
 type _questionHandler struct{}
@@ -89,7 +89,7 @@ func (q _questionHandler) Destroy(c *fiber.Ctx) error {
 func (_questionHandler) getQuestion(c *fiber.Ctx) (*models.Question, error) {
 	idInt, _ := strconv.Atoi(c.Params("id"))
 	quizId := uint(idInt)
-	if !repository.Quiz.IsBelongsToUser(quizId, authorized.Authorized.User.Id) {
+	if !repository.Quiz.IsBelongsToUser(quizId, GetAuthUser(c).Id) {
 		return nil, errors.New("this quiz does not belong to you")
 	}
 

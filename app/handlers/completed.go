@@ -2,13 +2,13 @@ package handlers
 
 import (
 	"errors"
+	"strconv"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/goquiz/api/app/repository"
 	"github.com/goquiz/api/database/models"
-	"github.com/goquiz/api/http/authorized"
 	"github.com/goquiz/api/http/errs"
 	"gorm.io/datatypes"
-	"strconv"
 )
 
 type _completedHandler struct{}
@@ -38,8 +38,10 @@ func (ch _completedHandler) PaginateAll(c *fiber.Ctx) error {
 		pageNum++
 	}
 
+	authUser := GetAuthUser(c)
+
 	completedQuizzes := repository.UserAnswer.Paginate(
-		authorized.Authorized.User.Id,
+		authUser.Id,
 		5,
 		pageNum,
 		uint(0), // this means that no quiz filter applied, all returned
@@ -59,7 +61,7 @@ func (ch _completedHandler) FindOne(c *fiber.Ctx) error {
 	quizId, _ := strconv.Atoi(c.Params("quizId"))
 
 	completedQuiz := repository.UserAnswer.Paginate(
-		authorized.Authorized.User.Id,
+		GetAuthUser(c).Id,
 		1,
 		1,
 		uint(quizId), // this means that

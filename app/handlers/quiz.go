@@ -2,14 +2,14 @@ package handlers
 
 import (
 	"errors"
+	"strconv"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/goquiz/api/app/repository"
 	"github.com/goquiz/api/app/requests"
 	"github.com/goquiz/api/database"
 	"github.com/goquiz/api/database/models"
-	"github.com/goquiz/api/http/authorized"
 	"github.com/goquiz/api/http/errs"
-	"strconv"
 )
 
 type _quizHandler struct{}
@@ -18,7 +18,7 @@ var QuizHandler _quizHandler
 
 // All returns all the quizzes for the authenticated user
 func (_quizHandler) All(c *fiber.Ctx) error {
-	quizzes := repository.Quiz.AllForUser(authorized.Authorized.User.Id)
+	quizzes := repository.Quiz.AllForUser(GetAuthUser(c).Id)
 	return c.JSON(fiber.Map{
 		"quizzes": quizzes,
 	})
@@ -35,7 +35,8 @@ func (q _quizHandler) WithQuestions(c *fiber.Ctx) error {
 
 // Create creates a quiz for the authenticated user
 func (_quizHandler) Create(c *fiber.Ctx) error {
-	quizCount := repository.Quiz.CountForUser(authorized.Authorized.User.Id)
+	authUserId := GetAuthUser(c).Id
+	quizCount := repository.Quiz.CountForUser(authUserId)
 
 	if quizCount >= 10 {
 		return errs.BadRequest(c, errors.New("cannot create more than 10 quiz"))
@@ -44,7 +45,7 @@ func (_quizHandler) Create(c *fiber.Ctx) error {
 	quizRequest := requests.QuizValidation
 	quiz := models.Quiz{
 		Name:   quizRequest.Name,
-		UserId: authorized.Authorized.User.Id,
+		UserId: authUserId,
 	}
 	database.Database.Model(&models.Quiz{}).Create(&quiz)
 	return c.JSON(fiber.Map{
@@ -84,7 +85,7 @@ func (q _quizHandler) Destroy(c *fiber.Ctx) error {
 func (_quizHandler) GetQuiz(c *fiber.Ctx) (*models.Quiz, error) {
 	idInt, _ := strconv.Atoi(c.Params("id"))
 	id := uint(idInt)
-	quiz := repository.Quiz.WithQuestions(id, authorized.Authorized.User.Id)
+	quiz := repository.Quiz.WithQuestions(id, GetAuthUser(c).Id)
 	if quiz.Id == 0 {
 		return nil, errors.New("this quiz could not be found or does not belongs to you")
 	}

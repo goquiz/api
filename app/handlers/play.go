@@ -2,12 +2,12 @@ package handlers
 
 import (
 	"errors"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/goquiz/api/app/repository"
 	"github.com/goquiz/api/app/requests"
 	"github.com/goquiz/api/database"
 	"github.com/goquiz/api/database/models"
-	"github.com/goquiz/api/http/authorized"
 	"github.com/goquiz/api/http/errs"
 )
 
@@ -23,7 +23,7 @@ func (p _playHandler) Info(c *fiber.Ctx) error {
 		return errs.NotFound(c, err)
 	}
 
-	if err := p.canAuthUserPlay(hosted.QuizId); err != nil {
+	if err := p.canAuthUserPlay(hosted.QuizId, c); err != nil {
 		return errs.BadRequest(c, err)
 	}
 
@@ -40,7 +40,7 @@ func (p _playHandler) Play(c *fiber.Ctx) error {
 		return errs.NotFound(c, errors.New("couldn't find this hosted quiz"))
 	}
 
-	if err := p.canAuthUserPlay(hosted.Id); err != nil {
+	if err := p.canAuthUserPlay(hosted.Id, c); err != nil {
 		return errs.BadRequest(c, err)
 	}
 
@@ -56,7 +56,7 @@ func (p _playHandler) Submit(c *fiber.Ctx) error {
 		return errs.NotFound(c, errors.New("couldn't find this hosted quiz"))
 	}
 
-	if err := p.canAuthUserPlay(hosted.Id); err != nil {
+	if err := p.canAuthUserPlay(hosted.Id, c); err != nil {
 		return errs.BadRequest(c, err)
 	}
 
@@ -70,7 +70,7 @@ func (p _playHandler) Submit(c *fiber.Ctx) error {
 
 	userAnswer := models.UserAnswer{
 		HostedQuizId: hosted.Id,
-		UserId:       authorized.Authorized.User.Id,
+		UserId:       GetAuthUser(c).Id,
 	}
 
 	err := database.Database.Create(&userAnswer).Error
@@ -109,8 +109,8 @@ func (_playHandler) getHostedQuiz(publicKey string) (*models.HostedQuiz, error) 
 }
 
 // canAuthUserPlay returns an error if the authenticated user already played the quiz before
-func (_playHandler) canAuthUserPlay(hostedQuizId uint) error {
-	canPlay := !repository.UserAnswer.IsUserAlreadyPlayed(hostedQuizId, authorized.Authorized.User.Id)
+func (_playHandler) canAuthUserPlay(hostedQuizId uint, c *fiber.Ctx) error {
+	canPlay := !repository.UserAnswer.IsUserAlreadyPlayed(hostedQuizId, GetAuthUser(c).Id)
 	if canPlay == true {
 		return nil
 	}
